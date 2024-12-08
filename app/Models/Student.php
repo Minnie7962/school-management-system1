@@ -10,30 +10,32 @@ class Student extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $primaryKey = 's_no';
-    
     protected $fillable = [
-        'id', 'first_name', 'last_name', 'father_name', 
-        'gender', 'class', 'section', 'date_of_birth', 
-        'profile_image', 'phone', 'email', 'address', 
-        'city', 'zip_code', 'state', 'user_id', 
-        'admission_status', 'admission_date'
+        'student_id', 'first_name', 'last_name', 'class', 'section', 'email'
     ];
-
-    protected $dates = ['date_of_birth', 'admission_date'];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id', 's_no');
+        return $this->belongsTo(User::class, 'email', 'email');
     }
 
     public function guardian()
     {
-        return $this->hasOne(StudentGuardian::class, 'id', 'id');
+        return $this->hasOne(StudentGuardian::class);
     }
 
     public function attendances()
     {
-        return $this->hasMany(Attendance::class, 'student_id', 'id');
+        return $this->hasMany(Attendance::class);
+    }
+
+    public function marks()
+    {
+        return $this->hasMany(Mark::class);
+    }
+
+    public function feeRecords()
+    {
+        return $this->hasMany(FeeRecord::class);
     }
 }
