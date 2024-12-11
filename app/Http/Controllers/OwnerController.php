@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use App\Models\Owner;
+use Illuminate\Support\Facades\Auth;
 
 class OwnerController extends BaseController
 {
@@ -59,5 +60,18 @@ class OwnerController extends BaseController
         $owner = Owner::find($id);
         $owner->delete();
         return redirect()->route('owner.index');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::guard('web')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
+    }
+
+    public function seePayment()
+    {
+        return view('owner.payment-details');
     }
 }

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use App\Models\Student;
+use App\Models\Attendance;
+use App\Models\FeeRecord;
+use Illuminate\Support\Facades\Auth;
 
 class StudentController extends BaseController
 {
@@ -59,5 +62,40 @@ class StudentController extends BaseController
         $student = Student::find($id);
         $student->delete();
         return redirect()->route('student.index');
+    }
+
+    public function checkFeeReceipt()
+    {
+        $receipts = FeeRecord::where('student_id', Auth::id())->get();
+        return view('student.fee-receipts', compact('receipts'));
+    }
+
+    public function fetchAttendance()
+    {
+        $attendance = Attendance::where('student_id', Auth::id())->get();
+        return view('student.attendance', compact('attendance'));
+    }
+
+    public function fetchAttendancePercentage()
+    {
+        $percentage = Attendance::where('student_id', Auth::id())
+                                ->avg('attendance_percentage');
+        return view('student.attendance-percentage', ['percentage' => $percentage]);
+    }
+
+    public function fetchTimetable()
+    {
+        // Fetch timetable data
+        return view('student.timetable');
+    }
+
+    public function password()
+    {
+        return view('student.change-password');
+    }
+
+    public function workspace()
+    {
+        return view('student.workspace');
     }
 }

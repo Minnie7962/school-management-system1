@@ -30,8 +30,24 @@ Route::controller(AuthController::class)->group(function() {
 
 Route::middleware(['auth', 'check.role:admin'])->group(function() {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/search-function', [App\Http\Controllers\AdminController::class, 'searchFunction'])->name('admin.search.function');
+    Route::post('/verify-role-redirect', [App\Http\Controllers\AdminController::class, 'verifyRoleRedirect'])->name('admin.verify.role.redirect');
 });
 
 Route::middleware(['auth', 'check.role:student'])->group(function() {
     Route::get('/student/dashboard', [StudentController::class, 'dashboard'])->name('student.dashboard');
+});
+
+Route::group(['prefix' => 'owner', 'middleware' => ['auth', 'verified']], function () {
+    Route::post('/logout', [App\Http\Controllers\OwnerController::class, 'logout'])->name('owner.logout');
+    Route::get('/payment', [App\Http\Controllers\OwnerController::class, 'seePayment'])->name('owner.payment');
+});
+
+Route::group(['prefix' => 'student', 'middleware' => ['auth', 'verified']], function () {
+    Route::get('/fee-receipts', [App\Http\Controllers\StudentController::class, 'checkFeeReceipt'])->name('student.fee.receipts');
+    Route::get('/attendance', [App\Http\Controllers\StudentController::class, 'fetchAttendance'])->name('student.attendance');
+    Route::get('/attendance-percentage', [App\Http\Controllers\StudentController::class, 'fetchAttendancePercentage'])->name('student.attendance.percentage');
+    Route::get('/timetable', [App\Http\Controllers\StudentController::class, 'fetchTimetable'])->name('student.timetable');
+    Route::get('/change-password', [App\Http\Controllers\StudentController::class, 'password'])->name('student.password');
+    Route::get('/workspace', [App\Http\Controllers\StudentController::class, 'workspace'])->name('student.workspace');
 });

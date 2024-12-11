@@ -72,4 +72,23 @@ class AdminController extends BaseController
         $students = Student::all();
         return view('admin.students', compact('students'));
     }
+    
+    public function searchFunction()
+    {
+        // Implement search functionality
+        return view('admin.search-function');
+    }
+
+    public function verifyRoleRedirect(Request $request)
+    {
+        // Verify role and redirect accordingly
+        // Example:
+        if ($request->user()->hasRole('admin')) {
+            return redirect()->route('admin.dashboard');
+        } elseif ($request->user()->hasRole('owner')) {
+            return redirect()->route('owner.dashboard');
+        } else {
+            return redirect()->route('student.dashboard');
+        }
+    }
 }
