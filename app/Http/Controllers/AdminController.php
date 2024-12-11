@@ -5,7 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use App\Models\Attendance;
 use App\Models\Student;
+use App\Models\Teacher;
+use App\Models\Subject;
+use App\Models\Syllabus;
+use App\Models\Notice;
+use App\Models\Exam;
+use App\Models\Mark;
+use App\Models\FeeRecord;
+use App\Models\Payroll;
+use App\Models\Leave;
+use App\Models\Feedback;
+use App\Models\Notification;
+use App\Models\TimeTable;
 use Illuminate\Support\Facades\Auth;
 
 class AdminController extends BaseController
@@ -90,5 +103,70 @@ class AdminController extends BaseController
         } else {
             return redirect()->route('student.dashboard');
         }
+    }
+
+    public function attendance()
+    {
+        // Implement attendance management
+    }
+
+    public function teachers()
+    {
+        // Implement teacher management
+    }
+
+    public function subjects()
+    {
+        // Implement subject management
+    }
+
+    public function syllabuses()
+    {
+        // Implement syllabus management
+    }
+
+    public function notices()
+    {
+        // Implement notice management
+    }
+
+    public function exams()
+    {
+        // Implement exam management
+    }
+
+    public function marks()
+    {
+        // Implement mark management
+    }
+
+    public function feeRecords()
+    {
+        // Implement fee record management
+    }
+
+    public function payrolls()
+    {
+        // Implement payroll management
+    }
+
+    public function leaves()
+    {
+        // Implement leave management
+    }
+
+    public function feedbacks()
+    {
+        // Implement feedback management
+    }
+
+    public function notifications()
+    {
+        // Implement notification management
+    }
+
+    public function timeTables()
+    {
+        // Implement time table management
     }
 }

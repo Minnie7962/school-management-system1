@@ -32,6 +32,20 @@ Route::middleware(['auth', 'check.role:admin'])->group(function() {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/search-function', [App\Http\Controllers\AdminController::class, 'searchFunction'])->name('admin.search.function');
     Route::post('/verify-role-redirect', [App\Http\Controllers\AdminController::class, 'verifyRoleRedirect'])->name('admin.verify.role.redirect');
+    Route::resource('attendance', AdminController::class);
+    Route::resource('students', AdminController::class);
+    Route::resource('teachers', AdminController::class);
+    Route::resource('subjects', AdminController::class);
+    Route::resource('syllabuses', AdminController::class);
+    Route::resource('notices', AdminController::class);
+    Route::resource('exams', AdminController::class);
+    Route::resource('marks', AdminController::class);
+    Route::resource('feeRecords', AdminController::class);
+    Route::resource('payrolls', AdminController::class);
+    Route::resource('leaves', AdminController::class);
+    Route::resource('feedbacks', AdminController::class);
+    Route::resource('notifications', AdminController::class);
+    Route::resource('timeTables', AdminController::class);
 });
 
 Route::middleware(['auth', 'check.role:student'])->group(function() {
